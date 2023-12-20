@@ -21,7 +21,10 @@ typedef struct {
     size_t cols;
 } WordMatrix;
 
-
+typedef struct {
+    char character;
+    char *binary;
+} BinaryMapping;
 
 char* wordToBinary(const char *word);
 

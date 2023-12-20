@@ -3,11 +3,10 @@
 //
 
 #include "projeto.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "projeto.h"
+
 
 
 
@@ -75,11 +74,11 @@ char* wordToBinary(const char *word) {
     return binary;
 }
 char* charTo6BitBinary(char c) {
-    char *binary = (char *)malloc(7 * sizeof(char)); // 6 bits + terminador nulo
+    char *binary = (char *)malloc(7 * sizeof(char)); // 6 bits + nulo
     for (int i = 5; i >= 0; --i) {
         binary[5 - i] = ((c >> i) & 1) + '0'; // Converte para '0' ou '1'
     }
-    binary[6] = '\0'; // Adiciona o terminador nulo
+    binary[6] = '\0'; // Adiciona o nulo
     return binary;
 }
 
@@ -94,12 +93,8 @@ void generateBinaryRepresentation() {
     }
 }
 
-typedef struct {
-    char character;
-    char *binary;
-} BinaryMapping;
 
-BinaryMapping mapping_num[] = {
+BinaryMapping mapping[] = {
         {'0', "0000"},
         {'1', "0001"},
         {'2', "0010"},
@@ -110,9 +105,6 @@ BinaryMapping mapping_num[] = {
         {'7', "0111"},
         {'8', "1000"},
         {'9', "1001"},
-};
-
-BinaryMapping mapping_min[] ={
         {'a', "1010"},
         {'b', "1011"},
         {'c', "1100"},
@@ -139,9 +131,6 @@ BinaryMapping mapping_min[] ={
         {'x', "100001"},
         {'y', "100010"},
         {'z', "100011"},
-};
-
-BinaryMapping mapping_mai[] ={
         {'A', "100100"},
         {'B', "100101"},
         {'C', "100110"},
@@ -167,47 +156,132 @@ BinaryMapping mapping_mai[] ={
         {'W', "111010"},
         {'X', "111011"},
         {'Y', "111100"},
-        {'Z', "111101"},
+        {'Z', "111101"}
 };
 
+
+
+
+
 // Função para converter um caractere para sua representação binária personalizada
-char* customBinaryEncoding(char c, const BinaryMapping *mapping, BinaryMapping *mapping_min, BinaryMapping *mapping_mai, size_t size) {
+char* customBinaryEncoding(char c, const BinaryMapping *mapping, size_t size) {
     for (size_t i = 0; i < size; ++i) {
         if (mapping[i].character == c) {
             return mapping[i].binary;
-        }
-    }
-    for (size_t i = 0; i < size; ++i) {
-        if (mapping_min[i].character == c) {
-            return mapping_min[i].binary;
-        }
-    }
-
-    for (size_t i = 0; i < size; ++i) {
-        if (mapping_mai[i].character == c) {
-            return mapping_mai[i].binary;
         }
     }
 
     return "0000"; // Padrão para caracteres desconhecidos
 }
 
+int functionprint(){
+    // Tamanho da tabela
+    size_t mappingSize = sizeof(mapping) / sizeof(mapping[0]);
 
+    char *p;
+    char c1[100]= {"o"
+                   "Ola"
+                   "Xpto"
+                   "LP"
+                   "1"
+                   "aba"};
+    int size;
+    size = 14;
+    p = (char*) malloc(sizeof (char)*10);
+
+    for (int i = 0; i < size; ++i) {
+        p[i] = c1[i];
+        //printf("%p = %c\n", &p[i], p[i]);
+    }
+    //teste
+    //for (int i = 0; i < 14; ++i) {
+    //  printf("'%c' -> %s\n", p[i], customBinaryEncoding(p[i], mapping ,mappingSize));
+    //}
+
+    //print a 1 palavra
+    for (int i = 0; i < 1 ; ++i) {
+        printf("%s", customBinaryEncoding(p[i], mapping,mappingSize));
+    }
+    printf("\n");
+    //print a 2 palavra
+    for (int i = 1; i < 4 ; ++i) {
+        printf("%s", customBinaryEncoding(p[i], mapping,mappingSize));
+    }
+    printf("\n");
+    //print a 3 palavra
+    for (int i = 4; i < 8 ; ++i) {
+        printf("%s", customBinaryEncoding(p[i], mapping,mappingSize));
+    }
+    printf("\n");
+    //print a 4 palavra
+    for (int i = 8; i < 10 ; ++i) {
+        printf("%s", customBinaryEncoding(p[i], mapping,mappingSize));
+    }
+    printf("\n");
+    //print a 5 palavra
+    for (int i = 10; i < 11 ; ++i) {
+        printf("%s", customBinaryEncoding(p[i], mapping,mappingSize));
+    }
+    printf("\n");
+    //print a 6 palavra
+    for (int i = 11; i < 14 ; ++i) {
+        printf("%s", customBinaryEncoding(p[i], mapping,mappingSize));
+    }
+
+    free(p);
+}
+
+int functionprint2(){
+    size_t mappingSize = sizeof(mapping) / sizeof(mapping[0]);
+
+    char *p;
+    char c2[100]= {"b"
+                   "Mundo"
+                   "PL"
+                   "11"
+                   };
+    int size;
+    size = 9;
+    p = (char*) malloc(sizeof (char)*10);
+    for (int i = 0; i < size; ++i) {
+        p[i] = c2[i];
+        //printf("%p = %c\n", &p[i], p[i]);
+    }
+
+    //teste
+    //for (int i = 0; i < 9; ++i) {
+      //printf("'%c' -> %s\n", p[i], customBinaryEncoding(p[i], mapping,mappingSize));
+    //}
+
+    //print a 1 palavra
+    for (int i = 0; i < 1 ; ++i) {
+        printf("%s", customBinaryEncoding(p[i], mapping,mappingSize));
+    }
+    printf("\n");
+    //print a 2 palavra
+    for (int i = 1; i < 6 ; ++i) {
+        printf("%s", customBinaryEncoding(p[i], mapping,mappingSize));
+    }
+    printf("\n");
+    //print a 3 palavra
+    for (int i = 6; i < 8 ; ++i) {
+        printf("%s", customBinaryEncoding(p[i], mapping,mappingSize));
+    }
+    printf("\n");
+    //print a 4 palavra
+    for (int i = 8; i < 10 ; ++i) {
+        printf("%s", customBinaryEncoding(p[i], mapping,mappingSize));
+    }
+
+}
 
 int main_aed_lp_proj() {
     // Chamar as funções de teste
     // testRequirement1();
 
     //generateBinaryRepresentation();
-
-    // Tamanho da tabela de mapeamento
-    size_t mappingSize = sizeof(mapping_min) / sizeof(mapping_num[0]);
-
-
-    char character = '3213';
-    for (int i = 0; i < character; ++i) {
-        printf("'%c' Binary: %s\n", character, customBinaryEncoding(character, mapping_num, mapping_min, mapping_mai, mappingSize));
-    }
+    functionprint();
+    functionprint2();
 
 
     return 0;
