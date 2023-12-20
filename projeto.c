@@ -188,7 +188,7 @@ int functionprint(){
     int size;
     size = 14;
     p = (char*) malloc(sizeof (char)*10);
-
+    printf("Conjunto 1: \n");
     for (int i = 0; i < size; ++i) {
         p[i] = c1[i];
         //printf("%p = %c\n", &p[i], p[i]);
@@ -243,6 +243,7 @@ int functionprint2(){
     int size;
     size = 9;
     p = (char*) malloc(sizeof (char)*10);
+    printf("\nConjunto 2: \n");
     for (int i = 0; i < size; ++i) {
         p[i] = c2[i];
         //printf("%p = %c\n", &p[i], p[i]);
