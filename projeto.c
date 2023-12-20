@@ -276,6 +276,46 @@ int functionprint2(){
 
 }
 
+
+
+//adicionar uma ou mais palavras ... mais tarde uso de files para ler as palavras
+
+int insertword(){
+
+
+}
+
+//remover uma ou mais palavras
+
+int removeword(){
+
+
+}
+
+//compara as palavras dos conjuntos
+
+int comparewords(){
+
+}
+
+//pesquisa palavras nos conjuntos e pretende-se encontrar todas as palavras
+//que contêm essa sequência de pesquisa. Deverá ainda ser possível obter os
+//códigos binários das palavras encontrados na pesquisa
+
+int searchwords(){
+
+}
+
+//Implementar funções para ordenar os conjuntos de palavras e respectivos códigos
+//UFP6, por ordem alfabética (crescente ou decrescente) ou por ordem de tamanho
+//das palavras (também crescente ou decrescente)
+
+int ordinaryfunction(){
+
+}
+
+
+
 int main_aed_lp_proj() {
     // Chamar as funções de teste
     // testRequirement1();
