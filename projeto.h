@@ -27,6 +27,7 @@ typedef struct {
     char *binary;
 } BinaryMapping;
 
+
 char* wordToBinary(const char *word);
 
 char* charTo6BitBinary(char c);//passa o binario apenas para 6 bits

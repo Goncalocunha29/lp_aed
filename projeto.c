@@ -141,6 +141,7 @@ BinaryMapping mapping[] = {
 };
 
 
+
 // Função para converter um caractere para sua representação binária personalizada
 char* customBinaryEncoding(char c[], const BinaryMapping *mapping, size_t size) {
     char *str1 = malloc(100);
