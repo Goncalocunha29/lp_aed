@@ -37,53 +37,16 @@ void addWordToMatrix(WordMatrix *matrix, size_t row, size_t col, char word) {
 }
 
 
-// Função para converter uma palavra para binário
-char* wordToBinary(const char *word) {
-    size_t len = strlen(word);
-    char *binary = (char *)malloc((8 * len + 1) * sizeof(char)); // Cada caractere requer 6 bits
-
-    for (size_t i = 0; i < len; ++i) {
-        char currentChar = word[i];
-        for (int j = 7; j >= 0; --j) {
-            binary[8 * i + (7 - j)] = ((currentChar >> j) & 1) + '0'; // Converte para '0' ou '1'
-        }
-    }
-    binary[8* len] = '\0'; // Adiciona o caractere nulo no final
-
-
-    return binary;
-}
-
-char* charTo6BitBinary(char c) {
-    char *binary = (char *)malloc(7 * sizeof(char)); // 6 bits + nulo
-    for (int i = 5; i >= 0; --i) {
-        binary[5 - i] = ((c >> i) & 1) + '0'; // Converte para '0' ou '1'
-    }
-    binary[6] = '\0'; // Adiciona o nulo
-    return binary;
-}
-
-// Função para gerar a representação binária para letras de 'a' a 'z' e números de 0 a 9
-void generateBinaryRepresentation() {
-    for (char ch = 'a'; ch <= 'z'; ++ch) {
-        printf("'%c' Binary: %s\n", ch, charTo6BitBinary(ch));
-    }
-
-    for (char digit = '0'; digit <= '9'; ++digit) {
-        printf("'%c' Binary: %s\n", digit, charTo6BitBinary(digit));
-    }
-}
-
 
 BinaryMapping mapping[] = {
         {'0', "0000"},
-        {'1', "0001"},
-        {'2', "0010"},
-        {'3', "0011"},
-        {'4', "0100"},
-        {'5', "0101"},
-        {'6', "0110"},
-        {'7', "0111"},
+        {'1', "1"},
+        {'2', "10"},
+        {'3', "11"},
+        {'4', "100"},
+        {'5', "101"},
+        {'6', "110"},
+        {'7', "111"},
         {'8', "1000"},
         {'9', "1001"},
         {'a', "1010"},
@@ -184,45 +147,20 @@ int functionprint(){
 int functionprint2(){
     size_t mappingSize = sizeof(mapping) / sizeof(mapping[0]);
 
-    char *p;
     char* c2[100]= {"b",
                    "Mundo",
                    "PL",
                    "11"
                    };
-    int size;
-    size = 9;
-    p = (char*) malloc(sizeof (char)*10);
+
     printf("\nConjunto 2: \n");
-    for (int i = 0; i < size; ++i) {
-        //p[i] = c2[i];
-        //printf("%p = %c\n", &p[i], p[i]);
-    }
 
-    //teste
-    //for (int i = 0; i < 9; ++i) {
-      //printf("'%c' -> %s\n", p[i], customBinaryEncoding(p[i], mapping,mappingSize));
-    //}
+    for (int i = 0; i < strlen(c2); ++i) {
+        char *teste;
+        teste = customBinaryEncoding(c2[i], mapping, mappingSize);
+        printf("%s\n", teste);
 
-    //print a 1 palavra
-    /*for (int i = 0; i < 1 ; ++i) {
-        printf("%s", customBinaryEncoding(p[i], mapping,mappingSize));
     }
-    printf("\n");
-    //print a 2 palavra
-    for (int i = 1; i < 6 ; ++i) {
-        printf("%s", customBinaryEncoding(p[i], mapping,mappingSize));
-    }
-    printf("\n");
-    //print a 3 palavra
-    for (int i = 6; i < 8 ; ++i) {
-        printf("%s", customBinaryEncoding(p[i], mapping,mappingSize));
-    }
-    printf("\n");
-    //print a 4 palavra
-    for (int i = 8; i < 10 ; ++i) {
-        printf("%s", customBinaryEncoding(p[i], mapping,mappingSize));
-    }*/
 
 }
 
@@ -231,8 +169,51 @@ int functionprint2(){
 //adicionar uma ou mais palavras ... mais tarde uso de files para ler as palavras
 
 int insertword(){
+    size_t mappingSize = sizeof(mapping) / sizeof(mapping[0]);
+    WordMatrix matrix;
+    size_t rows = 10;
+    size_t cols = 7;
+
+    char *c1[100]={"a", "b", "c", "1", "o"};
+
+    for (int i = 0; i < strlen(c1); ++i) {
+        char* randomWord;
+        randomWord = customBinaryEncoding(c1[i], mapping, mappingSize);
+        printf("%s\n", randomWord);
+    }
+    /*
+    for (size_t i = 0; i < rows; ++i) {
+        char palavra[11];
 
 
+        if (fgets(palavra, sizeof(palavra), stdin) != NULL) {
+            size_t length = strcspn(palavra, "\n");
+            if (palavra[length] == '\n') {
+                palavra[length] = '\0';
+            }
+            for (size_t j = 0; palavra[j] != '\0'; j++) {
+                addWordToMatrix(&matrix, i, j, palavra[j]);
+            }
+        } else {
+            printf("Erro ao ler a entrada.\n");
+        }
+    }
+
+    for (size_t i = 0; i < rows; ++i) {
+        for (size_t j = 0; j < cols; ++j) {
+            //printf("Word: %s\tUFP6 Code: %s\tBinary: %s\n",
+                   //matrix.entries[i][j].word,
+                   //matrix.entries[i][j].ufp6Code,
+                   //matrix.entries[i][j].binaryRepresentation);
+            if(matrix.entries[i][j].word){
+                printf("[%s]",matrix.entries[i][j].word);
+            }else{
+                printf("[ ]");
+            }
+        }
+        printf("\n");
+    }
+    */
 }
 
 //remover uma ou mais palavras
@@ -246,6 +227,12 @@ int removeword(){
 
 int comparewords(){
 
+    if(functionprint() == functionprint2()){
+        printf("\n1");
+    }else{
+        printf("0\n");
+    }
+    return 0;
 }
 
 //pesquisa palavras nos conjuntos e pretende-se encontrar todas as palavras
@@ -264,17 +251,17 @@ int ordinaryfunction(){
 
 }
 
-// Função de teste para o requisito 1
+
 void testRequirement1() {
 
     WordMatrix matrix;
-    size_t rows = 6;
+    size_t rows = 10;
     size_t cols = 7;
 
     initializeWordMatrix(&matrix, rows, cols);
 
     for (size_t i = 0; i < rows; ++i) {
-        char palavra[8];
+        char palavra[11];
         printf("Digite uma palavra %d (max. 7 caracteres):", i+1);
 
         if (fgets(palavra, sizeof(palavra), stdin) != NULL) {
@@ -307,7 +294,7 @@ void testRequirement1() {
         printf("\n");
     }
     size_t mappingSize = sizeof(mapping) / sizeof(mapping[0]);
-    printf("Conversão 1:\n");
+    printf("Conversion 1:\n");
     for (size_t i = 0; i < rows; ++i) {
         for (size_t j = 0; j < cols; ++j) {
             /*printf("Word: %s\tUFP6 Code: %s\tBinary: %s\n",
@@ -327,12 +314,17 @@ void testRequirement1() {
 
 int main_aed_lp_proj() {
     // Chamar as funções de teste
-    testRequirement1();
+    //testRequirement1();
 
     //generateBinaryRepresentation();
     //functionprint();
     //functionprint2();
 
+
+    //comparewords();
+
+
+    insertword();
 
     return 0;
 }
