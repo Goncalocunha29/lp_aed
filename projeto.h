@@ -11,7 +11,8 @@
 typedef struct {
     char *word;
     char *ufp6Code;
-    char *binaryRepresentation;
+    //data modificacao;
+    //char *binaryRepresentation;
 } WordEntry;
 
 // Estrutura para armazenar conjunto de palavras e códigos UFP6

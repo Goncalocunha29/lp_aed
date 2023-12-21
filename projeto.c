@@ -12,21 +12,29 @@
 
 // Função para inicializar a matriz de palavras e códigos UFP6
 void initializeWordMatrix(WordMatrix *matrix, size_t rows, size_t cols) {
-    matrix->entries = (WordEntry **)malloc(rows * sizeof(WordEntry *));
-    for (size_t i = 0; i < rows; ++i) {
-        matrix->entries[i] = (WordEntry *)malloc(cols * sizeof(WordEntry));
-    }
     matrix->rows = rows;
     matrix->cols = cols;
+    matrix->entries = (WordEntry **)malloc(rows * sizeof(WordEntry *));
+    for (size_t i = 0; i < rows; i++) {
+        matrix->entries[i] = (WordEntry *)malloc(cols * sizeof(WordEntry));
+        for (size_t j = 0; j < cols; j++) {
+            matrix->entries[i][j].word = NULL;
+        }
+    }
 }
 
 // Função para adicionar uma palavra e seu código UFP6 à matriz
-void addWordToMatrix(WordMatrix *matrix, size_t row, size_t col, const char *word, const char *ufp6Code) {
-    matrix->entries[row][col].word = strdup(word);
-    matrix->entries[row][col].ufp6Code = strdup(ufp6Code);
-    matrix->entries[row][col].binaryRepresentation = wordToBinary(word);
-}
+void addWordToMatrix(WordMatrix *matrix, size_t row, size_t col, char word) {
+    if (row < matrix->rows && col < matrix->cols) {
+        free(matrix->entries[row][col].word);
 
+        matrix->entries[row][col].word = (char *)malloc(2 * sizeof(char));
+        matrix->entries[row][col].word[0] = word;
+        matrix->entries[row][col].word[1] = '\0';
+    } else {
+        printf("Posição inválida na matriz.\n");
+    }
+}
 
 
 // Função para converter uma palavra para binário
@@ -134,14 +142,20 @@ BinaryMapping mapping[] = {
 
 
 // Função para converter um caractere para sua representação binária personalizada
-char* customBinaryEncoding(char c, const BinaryMapping *mapping, size_t size) {
-    for (size_t i = 0; i < size; ++i) {
-        if (mapping[i].character == c) {
-            return mapping[i].binary;
-        }
-    }
+char* customBinaryEncoding(char c[], const BinaryMapping *mapping, size_t size) {
+    char *str1 = malloc(100);
+    str1[0] = '\0';
 
-    return "0000"; // Padrão para caracteres desconhecidos
+        for(int j = 0; c[j] != '\0'; j++){
+            for (size_t i = 0; i < size; ++i) {
+            //printf("%c\n", c[i]);
+                if (mapping[i].character == c[j]) {
+                    strcat(str1, mapping[i].binary);
+                }
+            }
+        }
+
+    return str1; // Padrão para caracteres desconhecidos
 }
 
 int functionprint(){
@@ -170,9 +184,9 @@ int functionprint2(){
     size_t mappingSize = sizeof(mapping) / sizeof(mapping[0]);
 
     char *p;
-    char c2[100]= {"b"
-                   "Mundo"
-                   "PL"
+    char* c2[100]= {"b",
+                   "Mundo",
+                   "PL",
                    "11"
                    };
     int size;
@@ -249,7 +263,66 @@ int ordinaryfunction(){
 
 }
 
+// Função de teste para o requisito 1
+void testRequirement1() {
 
+    WordMatrix matrix;
+    size_t rows = 6;
+    size_t cols = 7;
+
+    initializeWordMatrix(&matrix, rows, cols);
+
+    for (size_t i = 0; i < rows; ++i) {
+        char palavra[8];
+        printf("Digite uma palavra %d (max. 7 caracteres):", i+1);
+
+        if (fgets(palavra, sizeof(palavra), stdin) != NULL) {
+            size_t length = strcspn(palavra, "\n");
+            if (palavra[length] == '\n') {
+                palavra[length] = '\0';
+            }
+            for (size_t j = 0; palavra[j] != '\0'; j++) {
+                addWordToMatrix(&matrix, i, j, palavra[j]);
+            }
+        } else {
+            printf("Erro ao ler a entrada.\n");
+        }
+    }
+
+    // Imprimir a matriz
+    printf("Requirement 1:\n");
+    for (size_t i = 0; i < rows; ++i) {
+        for (size_t j = 0; j < cols; ++j) {
+            /*printf("Word: %s\tUFP6 Code: %s\tBinary: %s\n",
+                   matrix.entries[i][j].word,
+                   matrix.entries[i][j].ufp6Code,
+                   matrix.entries[i][j].binaryRepresentation);*/
+            if(matrix.entries[i][j].word){
+                printf("[%s]",matrix.entries[i][j].word);
+            }else{
+                printf("[ ]");
+            }
+        }
+        printf("\n");
+    }
+    size_t mappingSize = sizeof(mapping) / sizeof(mapping[0]);
+    printf("Conversão 1:\n");
+    for (size_t i = 0; i < rows; ++i) {
+        for (size_t j = 0; j < cols; ++j) {
+            /*printf("Word: %s\tUFP6 Code: %s\tBinary: %s\n",
+                   matrix.entries[i][j].word,
+                   matrix.entries[i][j].ufp6Code,
+                   matrix.entries[i][j].binaryRepresentation);*/
+            if(matrix.entries[i][j].word){
+                printf("%s |",customBinaryEncoding(matrix.entries[i][j].word, mapping,mappingSize));
+
+            }else{
+                printf(" | ");
+            }
+        }
+        printf("\n");
+    }
+}
 
 int main_aed_lp_proj() {
     // Chamar as funções de teste
