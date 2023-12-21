@@ -28,34 +28,6 @@ void addWordToMatrix(WordMatrix *matrix, size_t row, size_t col, const char *wor
 }
 
 
-// Função de teste para o requisito 1
-void testRequirement1() {
-    WordMatrix matrix;
-    size_t rows = 2;
-    size_t cols = 3;
-
-    initializeWordMatrix(&matrix, rows, cols);
-
-    // Adicionar palavras aos conjuntos
-    addWordToMatrix(&matrix, 0, 0, "a", "");
-    addWordToMatrix(&matrix, 0, 1, "b", "");
-    addWordToMatrix(&matrix, 0, 2, "c", "");
-    addWordToMatrix(&matrix, 1, 0, "d", "");
-    addWordToMatrix(&matrix, 1, 1, "e", "");
-    addWordToMatrix(&matrix, 1, 2, "f", "");
-
-
-    // Imprimir a matriz
-    printf("Requirement 1:\n");
-    for (size_t i = 0; i < matrix.rows; ++i) {
-        for (size_t j = 0; j < matrix.cols; ++j) {
-            printf("Word: %s\tUFP6 Code: %s\tBinary: %s\n",
-                   matrix.entries[i][j].word,
-                   matrix.entries[i][j].ufp6Code,
-                   matrix.entries[i][j].binaryRepresentation);
-        }
-    }
-}
 
 // Função para converter uma palavra para binário
 char* wordToBinary(const char *word) {
@@ -73,6 +45,7 @@ char* wordToBinary(const char *word) {
 
     return binary;
 }
+
 char* charTo6BitBinary(char c) {
     char *binary = (char *)malloc(7 * sizeof(char)); // 6 bits + nulo
     for (int i = 5; i >= 0; --i) {
@@ -160,9 +133,6 @@ BinaryMapping mapping[] = {
 };
 
 
-
-
-
 // Função para converter um caractere para sua representação binária personalizada
 char* customBinaryEncoding(char c, const BinaryMapping *mapping, size_t size) {
     for (size_t i = 0; i < size; ++i) {
@@ -178,57 +148,22 @@ int functionprint(){
     // Tamanho da tabela
     size_t mappingSize = sizeof(mapping) / sizeof(mapping[0]);
 
-    char *p;
-    char c1[100]= {"o"
-                   "Ola"
-                   "Xpto"
-                   "LP"
-                   "1"
-                   "aba"};
-    int size;
-    size = 14;
-    p = (char*) malloc(sizeof (char)*10);
+    char *c1[100]= {"o", //11000
+                   "Ola", //110010101011010
+                   "Xpto",
+                   "LP",
+                   "1",
+                   "aba"}; //1010 1011 1010
+
     printf("Conjunto 1: \n");
-    for (int i = 0; i < size; ++i) {
-        p[i] = c1[i];
-        //printf("%p = %c\n", &p[i], p[i]);
-    }
-    //teste
-    //for (int i = 0; i < 14; ++i) {
-    //  printf("'%c' -> %s\n", p[i], customBinaryEncoding(p[i], mapping ,mappingSize));
-    //}
 
-    //print a 1 palavra
-    for (int i = 0; i < 1 ; ++i) {
-        printf("%s", customBinaryEncoding(p[i], mapping,mappingSize));
-    }
-    printf("\n");
-    //print a 2 palavra
-    for (int i = 1; i < 4 ; ++i) {
-        printf("%s", customBinaryEncoding(p[i], mapping,mappingSize));
-    }
-    printf("\n");
-    //print a 3 palavra
-    for (int i = 4; i < 8 ; ++i) {
-        printf("%s", customBinaryEncoding(p[i], mapping,mappingSize));
-    }
-    printf("\n");
-    //print a 4 palavra
-    for (int i = 8; i < 10 ; ++i) {
-        printf("%s", customBinaryEncoding(p[i], mapping,mappingSize));
-    }
-    printf("\n");
-    //print a 5 palavra
-    for (int i = 10; i < 11 ; ++i) {
-        printf("%s", customBinaryEncoding(p[i], mapping,mappingSize));
-    }
-    printf("\n");
-    //print a 6 palavra
-    for (int i = 11; i < 14 ; ++i) {
-        printf("%s", customBinaryEncoding(p[i], mapping,mappingSize));
+    for (int i = 0; i < strlen(c1) ; ++i) {
+        char *teste;
+        teste = customBinaryEncoding(c1[i], mapping,mappingSize);
+        printf("%s\n", teste);
+
     }
 
-    free(p);
 }
 
 int functionprint2(){
@@ -245,7 +180,7 @@ int functionprint2(){
     p = (char*) malloc(sizeof (char)*10);
     printf("\nConjunto 2: \n");
     for (int i = 0; i < size; ++i) {
-        p[i] = c2[i];
+        //p[i] = c2[i];
         //printf("%p = %c\n", &p[i], p[i]);
     }
 
@@ -255,7 +190,7 @@ int functionprint2(){
     //}
 
     //print a 1 palavra
-    for (int i = 0; i < 1 ; ++i) {
+    /*for (int i = 0; i < 1 ; ++i) {
         printf("%s", customBinaryEncoding(p[i], mapping,mappingSize));
     }
     printf("\n");
@@ -272,7 +207,7 @@ int functionprint2(){
     //print a 4 palavra
     for (int i = 8; i < 10 ; ++i) {
         printf("%s", customBinaryEncoding(p[i], mapping,mappingSize));
-    }
+    }*/
 
 }
 
@@ -318,11 +253,11 @@ int ordinaryfunction(){
 
 int main_aed_lp_proj() {
     // Chamar as funções de teste
-    // testRequirement1();
+    testRequirement1();
 
     //generateBinaryRepresentation();
-    functionprint();
-    functionprint2();
+    //functionprint();
+    //functionprint2();
 
 
     return 0;
