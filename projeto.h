@@ -32,6 +32,9 @@ char* wordToBinary(const char *word);
 
 char* charTo6BitBinary(char c);//passa o binario apenas para 6 bits
 
+
+void addRandomWord(WordMatrix set);
+
 int main_aed_lp_proj();
 
 

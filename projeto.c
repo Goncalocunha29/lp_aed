@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
+#include <stdbool.h>
 
 
 
@@ -104,6 +106,21 @@ BinaryMapping mapping[] = {
 };
 
 
+size_t mappingSize = sizeof(mapping) / sizeof(mapping[0]);
+
+char* c1[100]= {"o", //11000
+                "Ola", //110010101011010
+                "Xpto",
+                "LP",
+                "1",
+                "aba" //101010111010
+};
+
+char* c2[100]= {"b", //1011
+                "Mundo",
+                "PL",
+                "11" //11
+};
 
 // Função para converter um caractere para sua representação binária personalizada
 char* customBinaryEncoding(char c[], const BinaryMapping *mapping, size_t size) {
@@ -122,117 +139,159 @@ char* customBinaryEncoding(char c[], const BinaryMapping *mapping, size_t size) 
     return str1; // Padrão para caracteres desconhecidos
 }
 
-int functionprint(){
-    // Tamanho da tabela
-    size_t mappingSize = sizeof(mapping) / sizeof(mapping[0]);
 
-    char *c1[100]= {"o", //11000
-                   "Ola", //110010101011010
-                   "Xpto",
-                   "LP",
-                   "1",
-                   "aba"}; //1010 1011 1010
+int functionprint(){
 
     printf("Conjunto 1: \n");
-
+    char *teste;
     for (int i = 0; i < strlen(c1) ; ++i) {
-        char *teste;
+
         teste = customBinaryEncoding(c1[i], mapping,mappingSize);
         printf("%s\n", teste);
 
     }
-
+    free(teste);
 }
 
-int functionprint2(){
-    size_t mappingSize = sizeof(mapping) / sizeof(mapping[0]);
 
-    char* c2[100]= {"b",
-                   "Mundo",
-                   "PL",
-                   "11"
-                   };
+int functionprint2(){
 
     printf("\nConjunto 2: \n");
-
+    char *teste;
     for (int i = 0; i < strlen(c2); ++i) {
-        char *teste;
+
         teste = customBinaryEncoding(c2[i], mapping, mappingSize);
         printf("%s\n", teste);
 
     }
+    free(teste);
+}
+
+// passar os conjuntos para file
+
+void saveWordSetToFile(const char *charfilename) {
+    FILE *file = fopen(charfilename, "w");
+    if (file == NULL) {
+        perror("Erro ao abrir o arquivo");
+        exit(EXIT_FAILURE);
+    }
+
+    char *teste;
+    fprintf(file, "Conjunto 1:\n");
+    for (int i = 0; i < strlen(c1); ++i) {
+        teste = customBinaryEncoding(c1[i], mapping, mappingSize);
+        fprintf(file, "%s\t%s\n", c1[i], teste);
+    }
+
+
+    free(teste);
+    fclose(file);
 
 }
 
+void saveWordSetToFile2(const char *charfilename) {
+    FILE *file = fopen(charfilename, "w");
+    if (file == NULL) {
+        perror("Erro ao abrir o arquivo");
+        exit(EXIT_FAILURE);
+    }
+
+    char *test;
+    fprintf(file, "Conjunto 2:\n");
+    for (int i = 0; i < strlen(c2); ++i) {
+        fprintf(file, "binario de '%s' - ", c2[i]);
+        test = customBinaryEncoding(c2[i], mapping, mappingSize);
+        fprintf(file, "%s\n", test);
+    }
+
+    free(test);
+    fclose(file);
+
+}
 
 
 //adicionar uma ou mais palavras ... mais tarde uso de files para ler as palavras
 
-int insertword(){
-    size_t mappingSize = sizeof(mapping) / sizeof(mapping[0]);
-    WordMatrix matrix;
-    size_t rows = 10;
-    size_t cols = 7;
+int *gerwords() {
 
-    char *c1[100]={"a", "b", "c", "1", "o"};
+    int tamanho = rand() % 7 + 1; // tamanho maximo da palavra
+    char *palavra = (char *)malloc((tamanho + 1) * sizeof(char));
 
-    for (int i = 0; i < strlen(c1); ++i) {
-        char* randomWord;
-        randomWord = customBinaryEncoding(c1[i], mapping, mappingSize);
-        printf("%s\n", randomWord);
+    for (int i = 0; i < tamanho; ++i) {
+        palavra[i] = 'a' + rand() % 26; // Caracteres aleatórios de 'a' a 'z'
+
     }
-    /*
-    for (size_t i = 0; i < rows; ++i) {
-        char palavra[11];
 
+    palavra[tamanho] = '\0';
+    return palavra;
+}
 
-        if (fgets(palavra, sizeof(palavra), stdin) != NULL) {
-            size_t length = strcspn(palavra, "\n");
-            if (palavra[length] == '\n') {
-                palavra[length] = '\0';
-            }
-            for (size_t j = 0; palavra[j] != '\0'; j++) {
-                addWordToMatrix(&matrix, i, j, palavra[j]);
-            }
-        } else {
-            printf("Erro ao ler a entrada.\n");
+void addWordRandom(char *c[]){
+    for (int i = 0; i < 100; ++i) {
+        if (c[i] == NULL) {
+            c[i] = gerwords();
+            break;
         }
     }
+}
 
-    for (size_t i = 0; i < rows; ++i) {
-        for (size_t j = 0; j < cols; ++j) {
-            //printf("Word: %s\tUFP6 Code: %s\tBinary: %s\n",
-                   //matrix.entries[i][j].word,
-                   //matrix.entries[i][j].ufp6Code,
-                   //matrix.entries[i][j].binaryRepresentation);
-            if(matrix.entries[i][j].word){
-                printf("[%s]",matrix.entries[i][j].word);
-            }else{
-                printf("[ ]");
-            }
-        }
-        printf("\n");
+void randomc(char *c[]){
+    srand((unsigned int)time(NULL));
+
+    for (int i = 0; i < 5; ++i) {
+        addWordRandom(c);
     }
-    */
+    printf("Conjunto 1:\n");
+    for (int i = 0; i < 100 && c[i] != NULL; ++i) {
+        printf("|%s|\t", c[i]);
+    }
+    printf("\n");
+    for (int i = 0; i < 100; ++i) {
+        printf("%s\t", c[i]);
+        char *teste;
+        teste = customBinaryEncoding(c[i], mapping, mappingSize);
+        printf("%s\n", teste);
+    }
+    for (int i = 0; i < 100 && c[i] != NULL; ++i) {
+        free(c[i]);
+    }
+
 }
 
 //remover uma ou mais palavras
 
-int removeword(){
+void removeword(char *c[], const char *palavra) {
+    for (int i = 0; i < 100 && c[i] != NULL; ++i) {
+        if (strcmp(c[i], palavra) == 0) {
 
+            // Desloca as palavras restantes para preencher o espaço
+            for (int j = i; j < 99 && c[j + 1] != NULL; ++j) {
+                c[j] = c[j + 1];
 
+            }
+            c[99] = NULL;
+
+        }
+    }
+
+    printf("\nConjunto apos remover '%s':\n", palavra);
+    for (int i = 0; i < 100 && c[i] != NULL; ++i) {
+        char *teste;
+        teste = customBinaryEncoding(c[i], mapping, mappingSize);
+        printf("%s\t%s\n", c[i], teste);
+    }
+
+    // Libera a memória alocada para as palavras geradas e seus binários
+    for (int i = 0; i < 100 && c[i] != NULL; ++i) {
+        free(c[i]);
+    }
 }
 
 //compara as palavras dos conjuntos
 
 int comparewords(){
 
-    if(functionprint() == functionprint2()){
-        printf("\n1");
-    }else{
-        printf("0\n");
-    }
-    return 0;
+
 }
 
 //pesquisa palavras nos conjuntos e pretende-se encontrar todas as palavras
@@ -293,7 +352,7 @@ void testRequirement1() {
         }
         printf("\n");
     }
-    size_t mappingSize = sizeof(mapping) / sizeof(mapping[0]);
+
     printf("Conversion 1:\n");
     for (size_t i = 0; i < rows; ++i) {
         for (size_t j = 0; j < cols; ++j) {
@@ -322,9 +381,22 @@ int main_aed_lp_proj() {
 
 
     //comparewords();
+    //insertword();
 
 
-    insertword();
+    //saveWordSetToFile("palavras.txt");
+    //saveWordSetToFile2("palavras2.txt");
+
+
+    //adicionar palavras aos conjuntos
+    //assim serao apenas adicionadas 5 palavras ao conjunto escolhido
+
+    //randomc(c1);
+
+
+    //remover palavras dos conjuntos
+    //removeword(c1, "Ola");
+    //removeword(c2, "11");
 
     return 0;
 }
