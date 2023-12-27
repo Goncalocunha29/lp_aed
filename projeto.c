@@ -374,6 +374,7 @@ int ordinaryFunctionAlpha(char *c[], int tamanho){
 
 
 
+
 void testRequirement1() {
 
     WordMatrix matrix;
