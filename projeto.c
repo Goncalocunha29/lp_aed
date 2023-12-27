@@ -314,6 +314,7 @@ int comparec(char *c[], char *conj[]) {
     }
 }
 
+
 //pesquisa palavras nos conjuntos e pretende-se encontrar todas as palavras
 //que contêm essa sequência de pesquisa. Deverá ainda ser possível obter os
 //códigos binários das palavras encontrados na pesquisa
