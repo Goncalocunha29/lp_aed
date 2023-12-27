@@ -119,8 +119,10 @@ char* c1[100]= {"o", //11000
 char* c2[100]= {"b", //1011
                 "Mundo",
                 "PL",
-                "11" //11
+                "11"//11
 };
+
+
 
 // Função para converter um caractere para sua representação binária personalizada
 char* customBinaryEncoding(char c[], const BinaryMapping *mapping, size_t size) {
@@ -145,9 +147,9 @@ int functionprint(){
     printf("Conjunto 1: \n");
     char *teste;
     for (int i = 0; i < strlen(c1) ; ++i) {
-
         teste = customBinaryEncoding(c1[i], mapping,mappingSize);
         printf("%s\n", teste);
+
 
     }
     free(teste);
@@ -206,6 +208,7 @@ void saveWordSetToFile2(const char *charfilename) {
 
     free(test);
     fclose(file);
+
 
 }
 
@@ -289,26 +292,86 @@ void removeword(char *c[], const char *palavra) {
 
 //compara as palavras dos conjuntos
 
-int comparewords(){
-
-
+// Binario nao esta a dar
+int comparec(char *c[], char *conj[]) {
+    for (int i = 0; i < 100 && c1[i] != NULL; ++i) {
+        for (int j = 0; j < 100 && c2[j] != NULL; ++j) {
+            // Verifica se as combinações são iguais
+            if (strcmp(c1[i], c2[j]) == 0) {
+                char *teste1;
+                teste1 = customBinaryEncoding(c1, mapping, mappingSize);
+                char *teste2;
+                teste2 = customBinaryEncoding(c2, mapping, mappingSize);
+                printf("Combinacao encontrada:\n");
+                printf("Conjunto 1: %s\t%s\n", c1[i], teste1);
+                printf("Conjunto 2: %s\t%s\n", c2[j], teste2);
+                return 1; // Retorna 1 se uma combinação é encontrada
+            }
+        }
+    }
+    for (int i = 0; i < 100 && c[i] != NULL; ++i) {
+        free(c[i]);
+    }
 }
 
 //pesquisa palavras nos conjuntos e pretende-se encontrar todas as palavras
 //que contêm essa sequência de pesquisa. Deverá ainda ser possível obter os
 //códigos binários das palavras encontrados na pesquisa
 
-int searchwords(){
+void searchwords(char *c[], const char *sequencesearch){
+    printf("Palavras encontradas na pesquisa '%s':\n", sequencesearch);
 
+    for (int i = 0; i < 100 && c[i] != NULL; ++i) {
+        char *asd;
+        asd = customBinaryEncoding(c, mapping, mappingSize);
+        if (strstr(c[i], sequencesearch) != NULL) {
+            printf("Palavra: %s\tCodigo Binario: %s\n", c[i], asd);
+        }
+    }
+
+    printf("\n");
+    for (int i = 0; i < 100 && c[i] != NULL; ++i) {
+        free(c[i]);
+    }
 }
 
 //Implementar funções para ordenar os conjuntos de palavras e respectivos códigos
 //UFP6, por ordem alfabética (crescente ou decrescente) ou por ordem de tamanho
 //das palavras (também crescente ou decrescente)
 
-int ordinaryfunction(){
-
+int comparewordsc(const void *a, const void *b) {
+    const WordEntry *palavraA = (const WordEntry *)a;
+    const WordEntry *palavraB = (const WordEntry *)b;
+    return strcmp(palavraA->word, palavraB->word);
 }
+
+int ordinaryFunctionAlpha(char *c[], int tamanho){
+    // Criar um array de estruturas WordEntry para armazenar palavras e códigos
+    WordEntry *entradas = malloc(tamanho * sizeof(WordEntry));
+
+    // Preencher o array WordEntry
+    for (int i = 0; i < tamanho; ++i) {
+        char *teste;
+        teste = customBinaryEncoding(c, mapping, mappingSize);
+        entradas[i].word = c[i];
+        entradas[i].ufp6Code = teste;
+    }
+
+    // Ordenar o array WordEntry usando qsort
+    qsort(entradas, tamanho, sizeof(WordEntry), comparewordsc);
+
+    // Atualizar os conjuntos com as palavras e códigos ordenados
+    for (int i = 0; i < tamanho; ++i) {
+        char *teste = customBinaryEncoding(c, mapping, mappingSize);
+        c[i] = entradas[i].word;
+        teste[i] = *entradas[i].ufp6Code;
+    }
+
+    // Liberar a memória alocada
+    free(entradas);
+}
+
+
 
 
 void testRequirement1() {
@@ -397,6 +460,38 @@ int main_aed_lp_proj() {
     //remover palavras dos conjuntos
     //removeword(c1, "Ola");
     //removeword(c2, "11");
+
+
+    //comparec(c1, c2);
+
+    //searchwords(c1, "o");
+    //searchwords(c2, "11");
+
+    /*
+    for (int i = 0; i < 100 && c1[i] != NULL; ++i) {
+        free(c1[i]);
+    }
+    for (int i = 0; i < 100 && c2[i] != NULL; ++i) {
+        free(c2[i]);
+    }
+    */
+    /* ainda nao esta finializado
+    int tamanhoc = 6;
+    ordinaryFunctionAlpha(c1, tamanhoc);
+
+    printf("Conjunto 1 ordenado:\n");
+    for (int i = 0; i < tamanhoc; ++i) {
+        char *teste;
+        teste = customBinaryEncoding(c1, mapping, mappingSize);
+        printf("%s\t%s\n", c1[i], teste);
+    }
+
+    printf("\nConjunto 2 ordenado:\n");
+    for (int i = 0; i < tamanhoc; ++i) {
+        char *teste2;
+        teste2 = customBinaryEncoding(c2, mapping, mappingSize);
+        printf("%s\t%s\n", c2[i], teste2);
+    }*/
 
     return 0;
 }
