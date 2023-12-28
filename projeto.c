@@ -337,6 +337,7 @@ void searchwords(char *c[], const char *sequencesearch){
     }
 }
 
+
 //Implementar funções para ordenar os conjuntos de palavras e respectivos códigos
 //UFP6, por ordem alfabética (crescente ou decrescente) ou por ordem de tamanho
 //das palavras (também crescente ou decrescente)
