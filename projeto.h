@@ -11,8 +11,6 @@
 typedef struct {
     char *word;
     char *ufp6Code;
-    //data modificacao;
-    //char *binaryRepresentation;
 } WordEntry;
 
 // Estrutura para armazenar conjunto de palavras e códigos UFP6
@@ -27,6 +25,11 @@ typedef struct {
     char *binary;
 } BinaryMapping;
 
+
+typedef struct {
+    char *alphanumeric[10000];
+    char *codification[10000];
+} WORDS_HOLDER;
 
 char* wordToBinary(const char *word);
 

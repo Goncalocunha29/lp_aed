@@ -119,14 +119,15 @@ char* c1[100]= {"o", //11000
 char* c2[100]= {"b", //1011
                 "Mundo",
                 "PL",
-                "11"//11
+                "11",
+                "Ola"//11
 };
 
 
 
 // Função para converter um caractere para sua representação binária personalizada
 char* customBinaryEncoding(char c[], const BinaryMapping *mapping, size_t size) {
-    char *str1 = malloc(100);
+    char *str1 = malloc(10000);
     str1[0] = '\0';
 
         for(int j = 0; c[j] != '\0'; j++){
@@ -276,7 +277,7 @@ void removeword(char *c[], const char *palavra) {
     }
     char *teste;
     printf("\nConjunto apos remover '%s':\n", palavra);
-    for (int i = 0; i < 100 && c[i] != NULL; ++i) {
+    for (int i = 0; i < strlen(c) && c[i] != NULL; ++i) {
 
         teste = customBinaryEncoding(c[i], mapping, mappingSize);
         printf("%s\t%s\n", c[i], teste);
@@ -292,13 +293,14 @@ void removeword(char *c[], const char *palavra) {
 //compara as palavras dos conjuntos
 
 // Binario nao esta a dar
-int comparec(char *c[], char *conj[]) {
+int comparec() {
     char *teste1;
     char *teste2;
     for (int i = 0; i < 100 && c1[i] != NULL; ++i) {
         for (int j = 0; j < 100 && c2[j] != NULL; ++j) {
             // Verifica se as combinações são iguais
             if (strcmp(c1[i], c2[j]) == 0) {
+
                 teste1 = customBinaryEncoding(c1, mapping, mappingSize);
                 teste2 = customBinaryEncoding(c2, mapping, mappingSize);
                 printf("Combinacao encontrada:\n");
@@ -308,11 +310,13 @@ int comparec(char *c[], char *conj[]) {
             }
         }
     }
-    for (int i = 0; i < 100 && c[i] != NULL; ++i) {
-        free(c[i]);
+    for (int i = 0; i < 100 && c1[i] != NULL; ++i) {
+        free(c1[i]);
     }
-    free(teste1);
-    free(teste2);
+    for (int i = 0; i < 100 && c2[i] != NULL; ++i) {
+        free(c2[i]);
+    }
+
 }
 
 
@@ -326,9 +330,26 @@ void searchwords(char *c[], const char *sequencesearch){
     char *asd;
     for (int i = 0; i < strlen(c) && c[i] != NULL; ++i) {
 
-        asd = customBinaryEncoding(c, mapping, mappingSize);
         if (strstr(c[i], sequencesearch) != NULL) {
+            asd = customBinaryEncoding(c, mapping, mappingSize);
             printf("Palavra: %s\tCodigo Binario: %s\n", c[i], asd);
+        }
+    }
+
+    printf("\n");
+    /*for (int i = 0; i < 100 && c[i] != NULL; ++i) {
+        free(c[i]);
+    }*/
+
+}
+void searchwords2(const char *sequencesearch){
+    printf("Palavras encontradas na pesquisa '%s':\n", sequencesearch);
+    char *asd;
+    for (int i = 0; i < strlen(c2) && c2[i] != NULL; ++i) {
+
+        if (strstr(c2[i], sequencesearch) != NULL) {
+            asd = customBinaryEncoding(c2, mapping, mappingSize);
+            printf("Palavra: %s\tCodigo Binario: %s\n", c2[i], asd);
         }
     }
 
@@ -377,6 +398,36 @@ int ordinaryFunctionAlpha(char *c[], int tamanho){
 }
 
 
+void preencherWordsHolder(WORDS_HOLDER *holder, char *c1[], char *c2[]){
+    //Copia palavras alfanuméricas para o WORDS_HOLDER
+    for (int i = 0; c1[i] != NULL ; ++i) {
+        holder->alphanumeric[i] = strdup(c1[i]);
+    }
+    for (int i = 0; c2[i] != NULL ; ++i) {
+        holder->alphanumeric[i] = strdup(c2[i]);
+    }
+
+    //Codifica as palavras e armazena em WORDS_HOLDER
+    for (int i = 0; c2[i] != NULL ; ++i) {
+        char *codification = customBinaryEncoding(c2[i], mapping, mappingSize);
+        holder->codification[i] = codification;
+    }
+    for (int i = 0; c2[i] != NULL ; ++i) {
+        char *codification = customBinaryEncoding(c2[i], mapping, mappingSize);
+        holder->codification[i] = codification;
+    }
+}
+
+
+void libertarWordsHolder(WORDS_HOLDER *holder){
+    for (int i = 0; holder->alphanumeric[i] != NULL ; ++i) {
+        free(holder->alphanumeric[i]);
+    }
+
+    for (int i = 0; holder->codification[i] != NULL; ++i) {
+        free(holder->codification[i]);
+    }
+}
 
 
 
@@ -469,10 +520,10 @@ int main_aed_lp_proj() {
     //removeword(c2, "11");
 
 
-    //comparec(c1, c2);
+    //comparec();
 
-    //searchwords(c1, "o");
-    searchwords(c2, "L");
+    //searchwords(c1, "M");
+    //searchwords(c2, "1");
 
     /*
     for (int i = 0; i < 100 && c1[i] != NULL; ++i) {
@@ -499,6 +550,24 @@ int main_aed_lp_proj() {
         teste2 = customBinaryEncoding(c2, mapping, mappingSize);
         printf("%s\t%s\n", c2[i], teste2);
     }*/
+
+    WORDS_HOLDER holder;
+    preencherWordsHolder(&holder, c1, c2);
+    // Exibição das palavras alfanuméricas
+    printf("Palavras Alfanumericas:\n");
+    for (int i = 0; holder.alphanumeric[i] != NULL; ++i) {
+        printf("%s\n", holder.alphanumeric[i]);
+    }
+
+    // Exibição das palavras codificadas
+    printf("\nPalavras Codificadas:\n");
+    for (int i = 0; holder.codification[i] != NULL; ++i) {
+        printf("%s\n", holder.codification[i]);
+    }
+
+    // Libertar a memória alocada
+    libertarWordsHolder(&holder);
+
 
     return 0;
 }
