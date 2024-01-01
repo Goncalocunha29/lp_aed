@@ -113,14 +113,14 @@ char* c1[100]= {"o", //11000
                 "Xpto",
                 "LP",
                 "1",
-                "aba" //101010111010
+                "aba"//101010111010
 };
 
 char* c2[100]= {"b", //1011
                 "Mundo",
                 "PL",
-                "11",
-                "Ola"//11
+                "11",//11
+                "Xpto"
 };
 
 void testRequirement1() {
@@ -194,19 +194,20 @@ char *customBinaryEncoding(char c[], const BinaryMapping *mapping, size_t size) 
 }
 
 
-int functionprint(){
+int functionprint(char *c[]){
 
     printf("Conjunto 1: \n");
     char *teste;
-    for (int i = 0; i < strlen(c1) ; ++i) {
-        teste = customBinaryEncoding(c1[i], mapping,mappingSize);
+    for (int i = 0; i < strlen(c) ; ++i) {
+        teste = customBinaryEncoding(c[i], mapping,mappingSize);
         printf("%s\n", teste);
 
     }
+
     free(teste);
 }
 
-
+/*
 int functionprint2(){
 
     printf("\nConjunto 2: \n");
@@ -217,7 +218,7 @@ int functionprint2(){
 
     }
     free(teste);
-}
+}*/
 
 // passar os conjuntos para file
 
@@ -328,28 +329,28 @@ void removeword(char *c[], const char *palavra) {
 //compara as palavras dos conjuntos
 
 // Binario nao esta a dar
-int comparec() {
-    char *teste1;
-    char *teste2;
-    for (int i = 0; i < 100 && c1[i] != NULL; ++i) {
-        for (int j = 0; j < 100 && c2[j] != NULL; ++j) {
-            // Verifica se as combinações são iguais
-            if (strcmp(c1[i], c2[j]) == 0) {
+int comparec(char *c3[], char *conj[]) {
 
-                teste1 = customBinaryEncoding(c1, mapping, mappingSize);
-                teste2 = customBinaryEncoding(c2, mapping, mappingSize);
+    for (int i = 0; i < 100 && c3[i] != NULL; ++i) {
+        for (int j = 0; j < 100 && conj[j] != NULL; ++j) {
+            // Verifica se as combinações são iguais
+            if (strcmp(c3[i], conj[j]) == 0) {
+                char *tent = customBinaryEncoding(c3, mapping, mappingSize);
+                char *te = customBinaryEncoding(conj, mapping, mappingSize);
+
                 printf("Combinacao encontrada:\n");
-                printf("Conjunto 1: %s\t%s\n", c1[i], teste1);
-                printf("Conjunto 2: %s\t%s\n", c2[j], teste2);
-                return 1; // Retorna 1 se uma combinação é encontrada
+                printf("Conjunto 1: %s\t Binario: %s\n", c3[i], tent);
+                printf("Conjunto 2: %s\t Binario: %s\n", conj[j], te);
+                return 1;
             }
+
         }
     }
     for (int i = 0; i < 100 && c1[i] != NULL; ++i) {
-        free(c1[i]);
+        free(c3[i]);
     }
     for (int i = 0; i < 100 && c2[i] != NULL; ++i) {
-        free(c2[i]);
+        free(conj[i]);
     }
 }
 
@@ -361,37 +362,18 @@ int comparec() {
 
 void searchwords(char *c[], const char *sequencesearch){
     printf("Palavras encontradas na pesquisa '%s':\n", sequencesearch);
-    char *asd;
+    char *test;
     for (int i = 0; i < strlen(c) && c[i] != NULL; ++i) {
-
         if (strstr(c[i], sequencesearch) != NULL) {
-            asd = customBinaryEncoding(c, mapping, mappingSize);
-            printf("Palavra: %s\tCodigo Binario: %s\n", c[i], asd);
+            test = customBinaryEncoding(c, mapping, mappingSize);
+            printf("Palavra: %s\tCodigo Binario: %s\n", c[i], test);
         }
     }
 
     printf("\n");
 
-    free(asd);
+    free(test);
 
-
-}
-
-
-void searchwords2(const char *sequencesearch){
-    printf("Palavras encontradas na pesquisa '%s':\n", sequencesearch);
-    char *asd;
-    for (int i = 0; i < strlen(c2) && c2[i] != NULL; ++i) {
-
-        if (strstr(c2[i], sequencesearch) != NULL) {
-            asd = customBinaryEncoding(c2, mapping, mappingSize);
-            printf("Palavra: %s\tCodigo Binario: %s\n", c2[i], asd);
-        }
-    }
-
-    printf("\n");
-
-    free(asd);
 
 }
 
@@ -502,7 +484,7 @@ int main_aed_lp_proj() {
     //testRequirement1();
 
     //generateBinaryRepresentation();
-    //functionprint();
+    //functionprint(c1);
     //functionprint2();
 
 
@@ -523,10 +505,10 @@ int main_aed_lp_proj() {
     //removeword(c2, "11");
 
 
-    //comparec();
+    //comparec(c1, c2);
 
-    //searchwords(c1, "M");
-    //searchwords(c2, "1");
+    //searchwords(c1, "l");
+    //searchwords(c2, "X");
 
     /*
     for (int i = 0; i < 100 && c1[i] != NULL; ++i) {
@@ -573,19 +555,18 @@ int main_aed_lp_proj() {
     // Libertar a memória alocada
     libertarWordsHolder(&holder);*/
 
-    /*
+
     WORDS_HOLDER holder;
     inicializeWordsHolder(&holder);
+
 
     for (int i = 0; i < strlen(c1); ++i) {
         addWordsHolder(&holder, c1[i]);
     }
 
-
-
     WordsHolder(&holder);
 
     libertarWordsHolder(&holder);
-    */
+
     return 0;
 }
