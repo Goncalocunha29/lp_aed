@@ -27,16 +27,30 @@ typedef struct {
 
 
 typedef struct {
-    char *alphanumeric[10000];
-    char *codification[10000];
+    char *alphanumeric[100];
+    char *codification[100];
+    int spaceconj;
 } WORDS_HOLDER;
 
-char* wordToBinary(const char *word);
+void initializeWordMatrix(WordMatrix *matrix, size_t rows, size_t cols);
+void addWordToMatrix(WordMatrix *matrix, size_t row, size_t col, char word);
+char* customBinaryEncoding(char c[], const BinaryMapping *mapping, size_t size);
+void testRequirement1();
+int functionprint();
+int functionprint2();
+void saveWordSetToFile(const char *charfilename);
+void saveWordSetToFile2(const char *charfilename);
+int *gerwords();
+void addWordRandom(char *c[]);
+void randomc(char *c[]);
+void removeword(char *c[], const char *palavra);
+int comparec();
+void searchwords(char *c[], const char *sequencesearch);
+void searchwords2(const char *sequencesearch);
+int comparewordsc(const void *a, const void *b);
+void preencherWordsHolder(WORDS_HOLDER *holder, char *c[]);
+void libertarWordsHolder(WORDS_HOLDER *holder);
 
-char* charTo6BitBinary(char c);//passa o binario apenas para 6 bits
-
-
-void addRandomWord(WordMatrix set);
 
 int main_aed_lp_proj();
 
