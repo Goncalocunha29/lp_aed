@@ -432,6 +432,7 @@ int ordinaryFunctionAlpha(char *c[], int tamanho){
     free(entradas);
 }
 
+
 /*
 void preencherWordsHolder(WORDS_HOLDER *holder, char *c[]){
     //Copia palavras alfanuméricas para o WORDS_HOLDER
