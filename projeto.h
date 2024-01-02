@@ -59,6 +59,7 @@ void searchwords(char *c[], const char *sequencesearch);
 int comparewordsc(const void *a, const void *b);
 void preencherWordsHolder(WORDS_HOLDER *holder, char *c[], char *conj[]);
 void libertarWordsHolder(WORDS_HOLDER *holder);
+int ordinaryFunctionAlpha(char *c[], int tamanho);
 
 
 int main_aed_lp_proj();

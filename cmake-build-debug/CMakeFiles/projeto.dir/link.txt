@@ -1,3 +1,1 @@
-"D:\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -E rm -f CMakeFiles\projeto.dir/objects.a
-D:\CLION2~1.2\bin\mingw\bin\ar.exe qc CMakeFiles\projeto.dir/objects.a @CMakeFiles\projeto.dir\objects1.rsp
-D:\CLION2~1.2\bin\mingw\bin\gcc.exe -g -Wl,--whole-archive CMakeFiles\projeto.dir/objects.a -Wl,--no-whole-archive -o projeto.exe -Wl,--out-implib,libprojeto.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\projeto.dir\linkLibs.rsp
+/Library/Developer/CommandLineTools/usr/bin/cc -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/projeto.dir/main.c.o CMakeFiles/projeto.dir/projeto.c.o -o projeto 
