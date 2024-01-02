@@ -41,7 +41,7 @@ void addWordToMatrix(WordMatrix *matrix, size_t row, size_t col, char word) {
 
 
 BinaryMapping mapping[] = {
-        {'0', "0000"},
+        {'0', "0"},
         {'1', "1"},
         {'2', "10"},
         {'3', "11"},
@@ -113,14 +113,22 @@ char* c1[100]= {"o", //11000
                 "Xpto",
                 "LP",
                 "1",
-                "aba"//101010111010
+                "Zebra",
+                "aba",//101010111010
+                "p"
+
 };
 
 char* c2[100]= {"b", //1011
                 "Mundo",
+                "Canguru",
                 "PL",
                 "11",//11
-                "Xpto"
+                "Xpto",
+                "Ola",
+                "p",
+                "q"
+
 };
 
 void testRequirement1() {
@@ -165,10 +173,10 @@ void testRequirement1() {
     for (size_t i = 0; i < rows; ++i) {
         for (size_t j = 0; j < cols; ++j) {
             if(matrix.entries[i][j].word){
-                printf("%s |",customBinaryEncoding(matrix.entries[i][j].word, mapping,mappingSize));
+                printf("%s\t|\t",customBinaryEncoding(matrix.entries[i][j].word, mapping,mappingSize));
 
             }else{
-                printf(" | ");
+                printf("\t|\t");
             }
         }
         printf("\n");
@@ -176,14 +184,13 @@ void testRequirement1() {
 }
 
 
-// Função para converter um caractere para sua representação binária personalizada
+// Função para converter um caracter para sua representação binária personalizada
 char *customBinaryEncoding(char c[], const BinaryMapping *mapping, size_t size) {
     char *str1 = malloc(10000);
     str1[0] = '\0';
 
         for(int j = 0; c[j] != '\0'; j++){
             for (size_t i = 0; i < size; ++i) {
-            //printf("%c\n", c[i]);
                 if (mapping[i].character == c[j]) {
                     strcat(str1, mapping[i].binary);
                 }
@@ -196,9 +203,13 @@ char *customBinaryEncoding(char c[], const BinaryMapping *mapping, size_t size) 
 
 int functionprint(char *c[]){
 
-    printf("Conjunto 1: \n");
+    if(c == c1){
+        printf("Conjunto 1: \n");
+    }else{
+        printf("Conjunto 2: \n");
+    }
     char *teste;
-    for (int i = 0; i < strlen(c) ; ++i) {
+    for (int i = 0; i < 100 && c[i]!=NULL ; ++i) {
         teste = customBinaryEncoding(c[i], mapping,mappingSize);
         printf("%s\n", teste);
 
@@ -207,18 +218,6 @@ int functionprint(char *c[]){
     free(teste);
 }
 
-/*
-int functionprint2(){
-
-    printf("\nConjunto 2: \n");
-    char *teste;
-    for (int i = 0; i < strlen(c2); ++i) {
-        teste = customBinaryEncoding(c2[i], mapping, mappingSize);
-        printf("%s\n", teste);
-
-    }
-    free(teste);
-}*/
 
 // passar os conjuntos para file
 
@@ -231,14 +230,14 @@ void saveWordSetToFile(const char *charfilename) {
 
     char *teste;
     fprintf(file, "Conjunto 1:\n");
-    for (int i = 0; i < strlen(c1); ++i) {
+    for (int i = 0; i < 100 && c1[i] != NULL; ++i) {
         teste = customBinaryEncoding(c1[i], mapping, mappingSize);
         fprintf(file, "%s\t%s\n", c1[i], teste);
     }
     fprintf(file, "\nConjunto2:\n");
-    for (int i = 0; i < 5; ++i) {
-        char *teste = customBinaryEncoding(c2[i], mapping, mappingSize);
-        fprintf(file, "%s\t%s\n", c2[i], teste);
+    for (int i = 0; i < 100 && c2[i] != NULL; ++i) {
+        char *teste3 = customBinaryEncoding(c2[i], mapping, mappingSize);
+        fprintf(file, "%s\t%s\n", c2[i], teste3);
     }
 
 
@@ -279,13 +278,18 @@ void randomc(char *c[]){
     for (int i = 0; i < 5; ++i) {
         addWordRandom(c);
     }
-    printf("Conjunto 1:\n");
+    if(c == c1){
+        printf("Novo Conjunto 1:\n");
+    }else{
+        printf("Novo Conjunto 2:\n");
+    }
+
     for (int i = 0; i < 100 && c[i] != NULL; ++i) {
         printf("|%s|\t", c[i]);
     }
     printf("\n");
-    for (int i = 0; i < 100; ++i) {
-        printf("%s\t", c[i]);
+    for (int i = 0; i < 100 && c[i] != NULL; ++i) {
+        printf("%s\t ", c[i]);
 
         teste = customBinaryEncoding(c[i], mapping, mappingSize);
         printf("%s\n", teste);
@@ -299,57 +303,66 @@ void randomc(char *c[]){
 //remover uma ou mais palavras
 
 void removeword(char *c[], const char *palavra) {
+    int found = 0;
     for (int i = 0; i < 100 && c[i] != NULL; ++i) {
         if (strcmp(c[i], palavra) == 0) {
-
-            // Desloca as palavras restantes para preencher o espaço
-            for (int j = i; j < 99 && c[j + 1] != NULL; ++j) {
+            found = 1;
+            // Desloca as palavras restantes
+            for (int j = i; c[j] != NULL; ++j) {
                 c[j] = c[j + 1];
-
             }
-            c[99] = NULL;
 
         }
     }
-    char *teste;
-    printf("\nConjunto apos remover '%s':\n", palavra);
-    for (int i = 0; i < strlen(c) && c[i] != NULL; ++i) {
+    if(found){
+        char *teste;
+        printf("\nConjunto apos remover '%s':\n", palavra);
+        for (int i = 0; i < 100 && c[i] != NULL; ++i) {
 
-        teste = customBinaryEncoding(c[i], mapping, mappingSize);
-        printf("%s\t%s\n", c[i], teste);
+            teste = customBinaryEncoding(c[i], mapping, mappingSize);
+            printf("%s\t%s\n", c[i], teste);
+        }
+        free(teste);
+    }else{
+        printf("\n'%s' nao foi encontrada no conjunto\n", palavra);
     }
-
     // Libera a memória alocada para as palavras geradas e seus binários
     for (int i = 0; i < 100 && c[i] != NULL; ++i) {
         free(c[i]);
     }
-    free(teste);
+
+
 }
+
+
 
 //compara as palavras dos conjuntos
 
-// Binario nao esta a dar
-int comparec(char *c3[], char *conj[]) {
+int comparec(char *c[], char *conj[]) {
+    int found = 0;
 
-    for (int i = 0; i < 100 && c3[i] != NULL; ++i) {
+    for (int i = 0; i < 100 && c[i] != NULL; ++i) {
         for (int j = 0; j < 100 && conj[j] != NULL; ++j) {
             // Verifica se as combinações são iguais
-            if (strcmp(c3[i], conj[j]) == 0) {
-                char *tent = customBinaryEncoding(c3, mapping, mappingSize);
-                char *te = customBinaryEncoding(conj, mapping, mappingSize);
+            if (strcmp(c[i], conj[j]) == 0) {
+                found = 1;
+                char *tent = customBinaryEncoding(c[i], mapping, mappingSize);
+                char *te = customBinaryEncoding(conj[j], mapping, mappingSize);
 
                 printf("Combinacao encontrada:\n");
-                printf("Conjunto 1: %s\t Binario: %s\n", c3[i], tent);
+                printf("Conjunto 1: %s\t Binario: %s\n", c[i], tent);
                 printf("Conjunto 2: %s\t Binario: %s\n", conj[j], te);
-                return 1;
             }
 
         }
     }
-    for (int i = 0; i < 100 && c1[i] != NULL; ++i) {
-        free(c3[i]);
+    if(!found){
+        printf("Nao foi encontrada nenhuma combinacao\n");
     }
-    for (int i = 0; i < 100 && c2[i] != NULL; ++i) {
+    for (int i = 0; i < 100 && c[i] != NULL; ++i) {
+        free(c[i]);
+    }
+    for (int i = 0; i < 100 && conj[i] != NULL; ++i) {
         free(conj[i]);
     }
 }
@@ -363,14 +376,25 @@ int comparec(char *c3[], char *conj[]) {
 void searchwords(char *c[], const char *sequencesearch){
     printf("Palavras encontradas na pesquisa '%s':\n", sequencesearch);
     char *test;
-    for (int i = 0; i < strlen(c) && c[i] != NULL; ++i) {
+    int found = 0;
+    for (int i = 0; i < 100 && c[i] != NULL; ++i) {
         if (strstr(c[i], sequencesearch) != NULL) {
-            test = customBinaryEncoding(c, mapping, mappingSize);
+            found = 1;
+            test = customBinaryEncoding(c[i], mapping, mappingSize);
             printf("Palavra: %s\tCodigo Binario: %s\n", c[i], test);
         }
     }
+    if(!found){
+        printf("Nao foram encontradas palavras com '%s'", sequencesearch);
+    }
 
     printf("\n");
+    for (int i = 0; i < 100 && c1[i] != NULL; ++i) {
+        free(c1[i]);
+    }
+    for (int i = 0; i < 100 && c2[i] != NULL; ++i) {
+        free(c2[i]);
+    }
 
     free(test);
 
@@ -395,9 +419,10 @@ int ordinaryFunctionAlpha(char *c[], int tamanho){
     // Preencher o array WordEntry
     for (int i = 0; i < tamanho; ++i) {
         char *teste;
-        teste = customBinaryEncoding(c, mapping, mappingSize);
+        teste = customBinaryEncoding(c[i], mapping, mappingSize);
         entradas[i].word = c[i];
         entradas[i].ufp6Code = teste;
+
     }
 
     // Ordenar o array WordEntry usando qsort
@@ -405,42 +430,40 @@ int ordinaryFunctionAlpha(char *c[], int tamanho){
     char *teste;
     // Atualizar os conjuntos com as palavras e códigos ordenados
     for (int i = 0; i < tamanho; ++i) {
-        teste = customBinaryEncoding(c, mapping, mappingSize);
-        c[i] = entradas[i].word;
+        teste = customBinaryEncoding(entradas[i].word, mapping, mappingSize);
+        c[i] = strdup(entradas[i].word);
         teste[i] = *entradas[i].ufp6Code;
+        free(teste);
     }
 
     // Libertar a memória alocada
     free(entradas);
+
+    return 1;
 }
 
 
-/*
-void preencherWordsHolder(WORDS_HOLDER *holder, char *c[]){
+// Topico 7:
+
+void preencherWordsHolder(WORDS_HOLDER *holder, char *c[], char *conj[]){
     //Copia palavras alfanuméricas para o WORDS_HOLDER
-    if(c == c1){
-        for (int i = 0; c1[i] != NULL ; ++i) {
-            holder->alphanumeric[i] = strdup(c1[i]);
-        }
-    }else{
-        for (int i = 0; c2[i] != NULL ; ++i) {
-            holder->alphanumeric[i] = strdup(c2[i]);
-        }
+
+    for (int i = 0; c1[i] != NULL && i < 100; ++i) {
+        holder->alphanumeric[i] = strdup(c1[i]);
+        char *codification = customBinaryEncoding(c1[i], mapping, mappingSize);
+        holder->codification[i] = strdup(codification);
+        free(codification);
     }
 
-
-
-    //Codifica as palavras e armazena em WORDS_HOLDER
-    for (int i = 0; c2[i] != NULL ; ++i) {
+    for (int i = 0; c2[i] != NULL && i < 100; ++i) {
+        holder->alphanumeric[i + strlen(c1)] = strdup(c2[i]);  // Inicia a partir do momento em que o c1 acaba
         char *codification = customBinaryEncoding(c2[i], mapping, mappingSize);
-        holder->codification[i] = codification;
+        holder->codification[i + strlen(c1)] = strdup(codification);  // Inicia a partir do momento em que o c1 acaba
+        free(codification);
     }
-    for (int i = 0; c2[i] != NULL ; ++i) {
-        char *codification = customBinaryEncoding(c2[i], mapping, mappingSize);
-        holder->codification[i] = codification;
-    }
-}*/
 
+
+}
 
 void inicializeWordsHolder(WORDS_HOLDER *holder) {
     holder->spaceconj = 0;
@@ -450,15 +473,12 @@ void inicializeWordsHolder(WORDS_HOLDER *holder) {
     }
 }
 
-void addWordsHolder(WORDS_HOLDER *holder, const char *word) {
-    if(holder->spaceconj < 100){
-            char *test = customBinaryEncoding(word, mapping, mappingSize);
-            holder->alphanumeric[holder->spaceconj] = strdup(word);
-            holder->codification[holder->spaceconj] = strdup(test);
-            holder->spaceconj++;
-            free(test);
-    }else
-        printf("Esta cheio!\n");
+void WordsHolder(WORDS_HOLDER *holder) {
+    printf("\nPalavras na estrutura:\n");
+    for (int i = 0; i < holder->alphanumeric[i]; ++i) {
+        printf("%s\t%s\n", holder->alphanumeric[i], holder->codification[i]);
+    }
+
 }
 
 
@@ -470,12 +490,93 @@ void libertarWordsHolder(WORDS_HOLDER *holder){
     holder->spaceconj = 0;
 }
 
-void WordsHolder(WORDS_HOLDER *holder) {
+// Topico 8:
+
+AD_WORDS_HOLDER ADWords(size_t sizein){
+    AD_WORDS_HOLDER holder;
+    holder.size = sizein;
+    holder.ocup = 0;
+    holder.array = (VAL_AD_WORDS_HOLDER*) malloc(sizein* sizeof (VAL_AD_WORDS_HOLDER));
+
+    if(holder.array == NULL){
+        perror("Erro!\n");
+        exit(EXIT_FAILURE);
+    }
+
+    return holder;
+}
+
+// redimensionar o AD_WORDS_HOLDER
+void redADWords(AD_WORDS_HOLDER *holder, size_t nsize){
+    holder->array = (VAL_AD_WORDS_HOLDER *)realloc(holder->array, nsize * sizeof(VAL_AD_WORDS_HOLDER));
+
+    if(holder->array == NULL){
+        perror("Erro!\n");
+        exit(EXIT_FAILURE);
+    }
+
+    holder->size = nsize;
+}
+
+
+void addADWords(AD_WORDS_HOLDER *holder, const VAL_AD_WORDS_HOLDER *val) {
+    if (holder->ocup == holder->size) {
+        //redimensionar o array
+        redADWords(holder, holder->size * 2);
+    }
+
+    holder->array[holder->ocup] = *val;
+    holder->ocup++;
+}
+
+//libera memoria alocada em AD_WORDS_HOLDER
+void freeADWordsHolder(AD_WORDS_HOLDER *holder) {
+    for (size_t i = 0; i < holder->ocup; ++i) {
+        // Libera a memória alocada para as palavras geradas e seus binários
+        for (size_t j = 0; j < holder->array[i].wordsHolder->spaceconj; ++j) {
+            free(holder->array[i].wordsHolder->alphanumeric[j]);
+            free(holder->array[i].wordsHolder->codification[j]);
+        }
+    }
+    free(holder->array);
+    holder->array = NULL;
+    holder->size = 0;
+    holder->ocup = 0;
+}
+
+// Função para inicializar uma WORDS_HOLDER
+void initializeWordsHolder(WORDS_HOLDER *holder) {
+    holder->spaceconj = 0;
+
+
+    if (holder->alphanumeric == NULL || holder->codification == NULL) {
+        perror("Erro ao alocar memória para WORDS_HOLDER");
+        exit(EXIT_FAILURE);
+    }
+
+    for (int i = 0; i < 100; ++i) {
+        holder->alphanumeric[i] = NULL;
+        holder->codification[i] = NULL;
+    }
+}
+
+// Função para adicionar uma palavra à WORDS_HOLDER
+void addWordToWordsHolder(WORDS_HOLDER *holder, const char *word, const char *codification) {
+    if (holder->spaceconj < 100) {
+        holder->alphanumeric[holder->spaceconj] = strdup(word);
+        holder->codification[holder->spaceconj] = strdup(codification);
+        holder->spaceconj++;
+    } else {
+        printf("A WORDS_HOLDER está cheia!\n");
+    }
+}
+
+// Função para imprimir o conteúdo de uma WORDS_HOLDER
+void printWordsHolder(const WORDS_HOLDER *holder) {
     printf("Palavras na estrutura:\n");
     for (int i = 0; i < holder->spaceconj; ++i) {
         printf("%s\t%s\n", holder->alphanumeric[i], holder->codification[i]);
     }
-
 }
 
 
@@ -483,21 +584,13 @@ int main_aed_lp_proj() {
     // Chamar as funções de teste
     //testRequirement1();
 
-    //generateBinaryRepresentation();
     //functionprint(c1);
-    //functionprint2();
-
-
-    //comparewords();
-    //insertword();
-
-
-    //saveWordSetToFile("palavras.txt");
-
-    //adicionar palavras aos conjuntos
-    //assim serao apenas adicionadas 5 palavras ao conjunto escolhido
+    //functionprint(c2);
 
     //randomc(c1);
+    //randomc(c2);
+
+    //saveWordSetToFile("palavras.txt");
 
 
     //remover palavras dos conjuntos
@@ -507,66 +600,66 @@ int main_aed_lp_proj() {
 
     //comparec(c1, c2);
 
-    //searchwords(c1, "l");
+    //searchwords(c1, "o");
     //searchwords(c2, "X");
 
-    /*
-    for (int i = 0; i < 100 && c1[i] != NULL; ++i) {
-        free(c1[i]);
-    }
-    for (int i = 0; i < 100 && c2[i] != NULL; ++i) {
-        free(c2[i]);
-    }
-    */
-
-
     /* ainda nao esta finializado
-    int tamanhoc1 = 4;
-    ordinaryFunctionAlpha(c2, tamanhoc1);
+    if(ordinaryFunctionAlpha(c1, strlen(c1))){
 
-    printf("Conjunto 1 ordenado:\n");
-    for (int i = 0; i < strlen(c1); ++i) {
-        char *teste;
-        teste = customBinaryEncoding(c1, mapping, mappingSize);
-        printf("%s\t%s\n", c1[i], teste);
+        printf("Conjunto 1 ordenado:\n");
+        for (int i = 0; i < 100 && c1[i] != NULL; ++i) {
+            char *teste;
+            teste = customBinaryEncoding(c1[i], mapping, mappingSize);
+            printf("%s\t%s\n", c1[i], teste);
+        }
+    }
+    if(ordinaryFunctionAlpha(c2, strlen(c2))){
+        printf("\nConjunto 2 ordenado:\n");
+        for (int i = 0; i < 100 && c2[i] != NULL; ++i) {
+            char *teste2;
+            teste2 = customBinaryEncoding(c2[i], mapping, mappingSize);
+            printf("%s\t%s\n", c2[i], teste2);
+        }
     }*/
+
+
+
+    //------------------------TOPICO 7-----------------------------
+
     /*
-    printf("\nConjunto 2 ordenado:\n");
-    for (int i = 0; i <= strlen(c2); ++i) {
-        char *teste2;
-        teste2 = customBinaryEncoding(c2, mapping, mappingSize);
-        printf("%s\t%s\n", c2[i], teste2);
-    }*/
+    WORDS_HOLDER holder;
 
-    /*WORDS_HOLDER holder;
-    preencherWordsHolder(&holder, c2);
+
+    inicializeWordsHolder(&holder);
+    preencherWordsHolder(&holder, c1, c2);
     // Exibição das palavras alfanuméricas
     printf("Palavras Alfanumericas:\n");
     for (int i = 0; holder.alphanumeric[i] != NULL; ++i) {
-        printf("%s\n", holder.alphanumeric[i]);
+        printf("[%s]    ", holder.alphanumeric[i]);
     }
 
     // Exibição das palavras codificadas
-    printf("\nPalavras Codificadas:\n");
+    printf("\n\nPalavras Codificadas:\n");
     for (int i = 0; holder.codification[i] != NULL; ++i) {
-        printf("%s\n", holder.codification[i]);
+        printf("[%s]\n", holder.codification[i]);
     }
-
-    // Libertar a memória alocada
-    libertarWordsHolder(&holder);*/
-
-
-    WORDS_HOLDER holder;
-    inicializeWordsHolder(&holder);
-
-
-    for (int i = 0; i < strlen(c1); ++i) {
-        addWordsHolder(&holder, c1[i]);
-    }
-
     WordsHolder(&holder);
-
     libertarWordsHolder(&holder);
+    */
+    //------------------------TOPICO 8-----------------------------
+    //nao esta finalizado
+    /*
+    AD_WORDS_HOLDER adHolder = ADWords(10);
+    VAL_AD_WORDS_HOLDER val;
+    initializeWordsHolder(&val.wordsHolder);
+    addWordToWordsHolder(&val.wordsHolder, "palavra1", "codificacao1");
+    addWordToWordsHolder(&val.wordsHolder, "palavra2", "codificacao2");
+
+    addADWords(&adHolder, &val);
+    freeADWordsHolder(&adHolder);
+    */
+
+
 
     return 0;
 }
