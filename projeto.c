@@ -112,6 +112,7 @@ char* c1[100]= {"o", //11000
                 "Ola", //110010101011010
                 "Xpto",
                 "LP",
+                "9",
                 "1",
                 "Zebra",
                 "aba",//101010111010
@@ -418,18 +419,19 @@ int ordinaryFunctionAlpha(char *c[], int tamanho){
 
     // Preencher o array WordEntry
     for (int i = 0; i < tamanho; ++i) {
-        char *teste;
-        teste = customBinaryEncoding(c[i], mapping, mappingSize);
+        //char *teste;
+        //teste = customBinaryEncoding(c[i], mapping, mappingSize);
         entradas[i].word = c[i];
-        entradas[i].ufp6Code = teste;
-
+        entradas[i].ufp6Code = customBinaryEncoding(c[i], mapping, mappingSize);
+        //free(teste);
     }
 
     // Ordenar o array WordEntry usando qsort
     qsort(entradas, tamanho, sizeof(WordEntry), comparewordsc);
-    char *teste;
+
     // Atualizar os conjuntos com as palavras e códigos ordenados
     for (int i = 0; i < tamanho; ++i) {
+        char *teste;
         teste = customBinaryEncoding(entradas[i].word, mapping, mappingSize);
         c[i] = strdup(entradas[i].word);
         teste[i] = *entradas[i].ufp6Code;
@@ -448,17 +450,17 @@ int ordinaryFunctionAlpha(char *c[], int tamanho){
 void preencherWordsHolder(WORDS_HOLDER *holder, char *c[], char *conj[]){
     //Copia palavras alfanuméricas para o WORDS_HOLDER
 
-    for (int i = 0; c1[i] != NULL && i < 100; ++i) {
-        holder->alphanumeric[i] = strdup(c1[i]);
-        char *codification = customBinaryEncoding(c1[i], mapping, mappingSize);
+    for (int i = 0; c[i] != NULL && i < 100; ++i) {
+        holder->alphanumeric[i] = strdup(c[i]);
+        char *codification = customBinaryEncoding(c[i], mapping, mappingSize);
         holder->codification[i] = strdup(codification);
         free(codification);
     }
 
-    for (int i = 0; c2[i] != NULL && i < 100; ++i) {
-        holder->alphanumeric[i + strlen(c1)] = strdup(c2[i]);  // Inicia a partir do momento em que o c1 acaba
-        char *codification = customBinaryEncoding(c2[i], mapping, mappingSize);
-        holder->codification[i + strlen(c1)] = strdup(codification);  // Inicia a partir do momento em que o c1 acaba
+    for (int i = 0; conj[i] != NULL && i < 100; ++i) {
+        holder->alphanumeric[i + strlen(c)] = strdup(conj[i]);  // Inicia a partir do momento em que o c1 acaba
+        char *codification = customBinaryEncoding(conj[i], mapping, mappingSize);
+        holder->codification[i + strlen(c)] = strdup(codification);  // Inicia a partir do momento em que o c1 acaba
         free(codification);
     }
 
@@ -603,24 +605,23 @@ int main_aed_lp_proj() {
     //searchwords(c1, "o");
     //searchwords(c2, "X");
 
-    /* ainda nao esta finializado
-    if(ordinaryFunctionAlpha(c1, strlen(c1))){
-
-        printf("Conjunto 1 ordenado:\n");
-        for (int i = 0; i < 100 && c1[i] != NULL; ++i) {
-            char *teste;
-            teste = customBinaryEncoding(c1[i], mapping, mappingSize);
-            printf("%s\t%s\n", c1[i], teste);
-        }
+    /* ainda nao esta finializado*/
+    ordinaryFunctionAlpha(c1, strlen(c1));
+    printf("Conjunto 1 ordenado:\n");
+    for (int i = 0; i < 100 && c1[i] != NULL; ++i) {
+        char *teste;
+        teste = customBinaryEncoding(c1[i], mapping, mappingSize);
+        printf("%s\t%s\n", c1[i], teste);
     }
-    if(ordinaryFunctionAlpha(c2, strlen(c2))){
-        printf("\nConjunto 2 ordenado:\n");
-        for (int i = 0; i < 100 && c2[i] != NULL; ++i) {
-            char *teste2;
-            teste2 = customBinaryEncoding(c2[i], mapping, mappingSize);
-            printf("%s\t%s\n", c2[i], teste2);
-        }
-    }*/
+
+    ordinaryFunctionAlpha(c2, strlen(c2));
+    printf("\nConjunto 2 ordenado:\n");
+    for (int i = 0; i < 100 && c2[i] != NULL; ++i) {
+        char *teste2;
+        teste2 = customBinaryEncoding(c2[i], mapping, mappingSize);
+        printf("%s\t%s\n", c2[i], teste2);
+    }
+
 
 
 
