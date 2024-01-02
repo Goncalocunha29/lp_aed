@@ -295,9 +295,7 @@ void randomc(char *c[]){
         teste = customBinaryEncoding(c[i], mapping, mappingSize);
         printf("%s\n", teste);
     }
-    for (int i = 0; i < 100 && c[i] != NULL; ++i) {
-        free(c[i]);
-    }
+
     free(teste);
 }
 
@@ -327,11 +325,6 @@ void removeword(char *c[], const char *palavra) {
     }else{
         printf("\n'%s' nao foi encontrada no conjunto\n", palavra);
     }
-    // Libera a memória alocada para as palavras geradas e seus binários
-    for (int i = 0; i < 100 && c[i] != NULL; ++i) {
-        free(c[i]);
-    }
-
 
 }
 
@@ -360,12 +353,7 @@ int comparec(char *c[], char *conj[]) {
     if(!found){
         printf("Nao foi encontrada nenhuma combinacao\n");
     }
-    for (int i = 0; i < 100 && c[i] != NULL; ++i) {
-        free(c[i]);
-    }
-    for (int i = 0; i < 100 && conj[i] != NULL; ++i) {
-        free(conj[i]);
-    }
+
 }
 
 
@@ -390,12 +378,7 @@ void searchwords(char *c[], const char *sequencesearch){
     }
 
     printf("\n");
-    for (int i = 0; i < 100 && c1[i] != NULL; ++i) {
-        free(c1[i]);
-    }
-    for (int i = 0; i < 100 && c2[i] != NULL; ++i) {
-        free(c2[i]);
-    }
+
 
     free(test);
 
@@ -605,7 +588,7 @@ int main_aed_lp_proj() {
     //searchwords(c1, "o");
     //searchwords(c2, "X");
 
-    /* ainda nao esta finializado*/
+    /* ainda nao esta finializado
     ordinaryFunctionAlpha(c1, strlen(c1));
     printf("Conjunto 1 ordenado:\n");
     for (int i = 0; i < 100 && c1[i] != NULL; ++i) {
@@ -621,7 +604,7 @@ int main_aed_lp_proj() {
         teste2 = customBinaryEncoding(c2[i], mapping, mappingSize);
         printf("%s\t%s\n", c2[i], teste2);
     }
-
+    */
 
 
 
@@ -647,6 +630,7 @@ int main_aed_lp_proj() {
     WordsHolder(&holder);
     libertarWordsHolder(&holder);
     */
+
     //------------------------TOPICO 8-----------------------------
     //nao esta finalizado
     /*

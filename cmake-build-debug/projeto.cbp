@@ -8,84 +8,86 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug"/>
+				<Option working_dir="/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="D:/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="D:/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="D:/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="D:/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="projeto">
-				<Option output="C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug/projeto.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug"/>
+				<Option output="/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug/projeto" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="D:/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
-					<Add directory="D:/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
-					<Add directory="D:/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
-					<Add directory="D:/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="D:/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 projeto"/>
-					<CompileFile command="D:/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="D:/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="D:/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 projeto"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="projeto/fast">
-				<Option output="C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug/projeto.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug"/>
+				<Option output="/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug/projeto" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="D:/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
-					<Add directory="D:/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
-					<Add directory="D:/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
-					<Add directory="D:/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="D:/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 projeto/fast"/>
-					<CompileFile command="D:/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="D:/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="D:/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 projeto/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug"/>
+				<Option working_dir="/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="D:/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="D:/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="D:/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="D:/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug"/>
+				<Option working_dir="/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="D:/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="D:/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="D:/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="D:/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/gonca/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/goncalocunha/CLionProjects/lp_aed/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/gonca/CLionProjects/lp_aed/main.c">
+		<Unit filename="/Users/goncalocunha/CLionProjects/lp_aed/main.c">
 			<Option target="projeto"/>
 		</Unit>
-		<Unit filename="C:/Users/gonca/CLionProjects/lp_aed/projeto.c">
+		<Unit filename="/Users/goncalocunha/CLionProjects/lp_aed/projeto.c">
 			<Option target="projeto"/>
 		</Unit>
-		<Unit filename="C:/Users/gonca/CLionProjects/lp_aed/projeto.h">
+		<Unit filename="/Users/goncalocunha/CLionProjects/lp_aed/projeto.h">
 			<Option target="projeto"/>
 		</Unit>
-		<Unit filename="C:/Users/gonca/CLionProjects/lp_aed/CMakeLists.txt">
+		<Unit filename="/Users/goncalocunha/CLionProjects/lp_aed/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>
